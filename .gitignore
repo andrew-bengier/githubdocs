@@ -1,3 +1,12 @@
+# Project Files
+*.idea
+*.iml
+
+# Libraries
 node_modules/
+
+# Generated Files
 dist/
+
+# Environmental Files
 ecosystem.config.js

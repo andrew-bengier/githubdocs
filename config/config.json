@@ -1,21 +1,11 @@
 {
-    "title": "githubdocs",
-    "githubRepoOwner": "mrvautin",
-    "githubRepoName": "githubdocs",
-    "githubRepoPath": "docs",
-    "updateDocsCron": "*/5 * * * *",
-    "menuItems": [
-        {
-            "menuTitle": "About",
-            "menuLink": "/about"
-        },
-        {
-            "menuTitle": "Contact",
-            "menuLink": "/contact"
-        }
-    ],
-    "addAnchors": true,
-    "layoutFile": "layout",
-    "theme": "default",
-    "static": false
+  "title": "Captain's Log",
+  "githubRepoOwner": "andrew-bengier",
+  "githubRepoName": "daily-notes",
+  "githubRepoPath": "",
+  "updateDocsCron": "*/5 * * * *",
+  "addAnchors": true,
+  "layoutFile": "layout",
+  "theme": "default",
+  "static": true
 }
