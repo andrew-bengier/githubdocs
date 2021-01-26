@@ -5,7 +5,9 @@
   "githubRepoPath": "",
   "updateDocsCron": "*/5 * * * *",
   "addAnchors": true,
-  "layoutFile": "layout",
-  "theme": "default",
+  //  "layoutFile": "layout",
+  //  "theme": "default",
+  "layoutFile": "material.hbs", // HTML layout file
+  "theme": "material.hbs" // Sidebar, nav and content
   "static": true
 }
