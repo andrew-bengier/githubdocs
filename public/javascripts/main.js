@@ -10,10 +10,12 @@ $(document).ready(() => {
         $(window).trigger('hashchange');
     }
 
+    injectFunctionality();
+
     // current sidebar links on page load
     getDocs((response) => {
         // create sidebar list from response
-        populateSideMenu(response.docs);
+        populateSideMenu(organizeDocsByDir(response.docs));
 
         // set the navbar brand title from config
         $('.navbar-brand, .brand-logo').html(response.config.title);
@@ -24,7 +26,7 @@ $(document).ready(() => {
         }
 
         // store the inital list for later
-        const currentListGroup = $('.sidebarLink'); ;
+        const currentListGroup = $('.sidebarLink');
 
         // populate the top menu
         populateTopMenu();
@@ -43,9 +45,7 @@ $(document).ready(() => {
                         // remove current list
                         $('.sidebarLink').remove();
 
-                        $.each(response, (key, value) => {
-                            $('.sidebar').append('<li class="list-group-item collection-item sidebarLink"><a href="#' + value.docSlug + '">' + value.docTitle + '</a></li>');
-                        });
+                        populateSideMenu(organizeDocsByDir(response));
                     }else{
                         // remove current list
                         $('.sidebarLink').remove();
@@ -183,10 +183,41 @@ function setMetaTags(doc){
     }
 }
 
-function populateSideMenu(data){
-    $.each(data, (key, value) => {
-        $('.sidebar').append('<li class="list-group-item collection-item sidebarLink"><a href="#' + value.docSlug + '">' + value.docTitle + '</a></li>');
+function organizeDocsByDir(data){
+    return data.reduce((memo, doc) => {
+        if(!memo[doc.docDir]){
+          memo[doc.docDir] = [];
+        }
+
+        memo[doc.docDir].push(doc);
+
+        return memo;
+      }, {});
+}
+
+function populateSideMenu(dataByDir){
+    $.each(dataByDir, (key, linkMetadatas) => {
+        $('.sidebar').append(`
+            <li class="list-group-item collection-item sidebarLink">
+                <a onclick="expand('${key}-collapsible-content', this)" class="sidebar-title"><i class="collapsible-indicator"></i>${key}</a>
+                <div class="collapsible-content" id="${key}-collapsible-content">
+                    ${generateDocumentLinks(linkMetadatas)}
+                </div>
+            </li>
+        `);
     });
+}
+
+function generateDocumentLinks(linkMetadatas){
+    let html = '';
+
+    linkMetadatas.forEach((linkMetadata) => {
+        const link = `<a href="#${linkMetadata.docSlug}" class="document-link">${linkMetadata.docTitle}</a>\n`;
+
+        html += link;
+    });
+
+    return html;
 }
 
 function populateTopMenu(){
@@ -199,4 +230,16 @@ function populateTopMenu(){
             $('.nav').append('<li><a href="' + value.menuLink + '">' + value.menuTitle + '</a></li>');
         });
     });
+}
+
+function injectFunctionality(){
+    const script = document.createElement('script');
+
+    script.innerHTML = expand.toString();
+    $('head').append(script);
+
+    function expand(key, context){
+        $(`#${key}.collapsible-content`).toggleClass('expanded');
+        $($(context).find('i')[0]).toggleClass('expanded');
+    }
 }

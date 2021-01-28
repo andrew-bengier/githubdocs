@@ -58,6 +58,56 @@ hr{
     position: relative;
 }
 
+.collapsible-content {
+    background-color: #F5F5F5;
+    height: 0;
+    overflow: hidden;
+}
+
+.collapsible-content.expanded {
+    height: 100%;
+}
+
+.collapsible-indicator {
+    position: absolute;
+    height: 20px;
+    width: 20px;
+    background-image: url(/images/star-trek.webp);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    top: 10px;
+    left: 81px;
+    transform: rotate(90deg);
+}
+
+.collapsible-indicator.expanded {
+    transform: rotate(180deg);
+}
+
+.sidebar-title {
+    color: #CC0C00FF;
+    cursor: pointer;
+    display: block;
+    font-size: 1.2rem;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 10px 0;
+    position: relative;
+    text-align: center;
+    width: 100%;
+}
+
+.collection .collection-item {
+    padding: 0;
+}
+
+.document-link {
+    display: block;
+    margin-left: 5px;
+    width: 100%;
+}
+
 @media only screen and (max-width : 768px) {
     h1 {
         font-size: 3rem;
