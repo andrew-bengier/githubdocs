@@ -28,8 +28,6 @@ $(document).ready(() => {
         // store the inital list for later
         const currentListGroup = $('.sidebarLink');
 
-        console.log('CurrentListGroup: ', currentListGroup);
-
         // populate the top menu
         populateTopMenu();
 
@@ -198,7 +196,6 @@ function organizeDocsByDir(data){
 }
 
 function populateSideMenu(dataByDir){
-    console.log('Populating side menu!');
     $.each(dataByDir, (key, linkMetadatas) => {
         $('.sidebar').append(`
             <li class="list-group-item collection-item sidebarLink">
